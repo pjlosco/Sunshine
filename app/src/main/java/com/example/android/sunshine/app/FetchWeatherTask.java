@@ -15,20 +15,20 @@ import java.net.URL;
 /**
  * Created by patricklosco on 7/17/14.
  */
-public class FetchWeatherClass extends AsyncTask<Void, Void, Void>{
+public class FetchWeatherTask extends AsyncTask<Void, Void, Void>{
 
-    private final String LOG_TAG = FetchWeatherClass.class.getSimpleName();
+    private final String LOG_TAG = FetchWeatherTask.class.getSimpleName();
 
     URL url;
 
-    FetchWeatherClass() {
+    FetchWeatherTask() {
         try {
             url = new URL("http://api.openweathermap.org/data/2.5/forecast/daily?q=94043&mode=json&units=metric&cnt=7");
         } catch (MalformedURLException e) {
             Log.e(LOG_TAG, "Malformed url");
         }
     }
-    FetchWeatherClass(String url) {
+    FetchWeatherTask(String url) {
         try {
             this.url = new URL(url);
         } catch (Exception e) {
