@@ -24,7 +24,7 @@ Sunshine App for android
     onCreateOptionsMenu() - actually inflate it here
     onOptionsItemSelected() - set references and create the action when selected
 8. Add a permission for internet access
- - <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.INTERNET"/>
 9. Create JSON manager/parser
 10. Update local data from JSON
 11. Create setOnItemClickListener statements within onCreateView to have actions when an item in the list is clicked
@@ -32,11 +32,20 @@ Sunshine App for android
 13. Using an Intent is the way to connect to other Activities.
 14. Create a new activity by generating files within Android Studio, new Blank Activity with Fragment. This will update the manifest automatically
 15. Connect intent with Activity
- - Intent intent = new Intent(getActivity(),DetailActivity.class).putExtra(Intent.EXTRA_TEXT, "Something useful");
- - startActivity(intent);
+    Intent intent = new Intent(getActivity(),DetailActivity.class).putExtra(Intent.EXTRA_TEXT, "Something useful");
+    startActivity(intent);
 16. Create layout for new activity. res > layout > activity_detail.xml, fragment_detail.xml
 17. Update intent with useful data to populate into new activity
 18. Update new activity with importing the intent during onCreateView and apply to an object that was added in the XML
  - String forecastStr = intent.getStringExtra(Intent.EXTRA_TEXT);
  - ((TextView) rootView.findViewById(R.id.detail_text)).setText(forecastStr);
-19.
+19. Creating settings activity is the same thing, but need to reference the onclick of the settings menu to open the activity
+    if (id == R.id.action_settings) {
+        startActivity(new Intent(this,SettingsActivity.class));
+        return true;
+    }
+20. Actually populating what shows up in the settings fragment is different. The onCreate method will load in an XML file separately
+    addPreferencesFromResource(R.xml.pref_general);
+    bindPreferenceSummaryToValue(findPreference(getString(R.string.pref_location_key)));
+    bindPreferenceSummaryToValue(findPreference(getString(R.string.pref_units_key)));
+21.
