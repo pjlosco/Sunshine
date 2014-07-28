@@ -48,4 +48,14 @@ Sunshine App for android
     addPreferencesFromResource(R.xml.pref_general);
     bindPreferenceSummaryToValue(findPreference(getString(R.string.pref_location_key)));
     bindPreferenceSummaryToValue(findPreference(getString(R.string.pref_units_key)));
-21.
+21. Switch a setting to a different value using shared preferences
+     SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
+     String unitType = preferences.getString(getString(R.string.pref_units_key), getString(R.string.pref_units_metric));
+     if (unitType.equals(getString(R.string.pref_units_imperial))) {
+        high = (high*1.8) + 32;
+        low = (low*1.8) + 32;
+     } else if (!unitType.equals(getString(R.string.pref_units_metric))) {
+        Log.d(LOG_TAG, "Unknown unit type for temp found: " + unitType);
+     }
+22. Intents
+23.
