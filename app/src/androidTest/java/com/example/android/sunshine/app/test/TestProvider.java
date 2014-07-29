@@ -1,9 +1,11 @@
 package com.example.android.sunshine.app.test;
 
 import android.annotation.TargetApi;
+import android.content.ContentUris;
 import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.net.Uri;
 import android.os.Build;
 import android.test.AndroidTestCase;
 import android.util.Log;
@@ -33,13 +35,12 @@ public class TestProvider extends AndroidTestCase {
 
         // If there's an error in those massive SQL table creation Strings,
         // errors will be thrown here when you try to get a writable database.
-        WeatherDBHelper dbHelper = new WeatherDBHelper(mContext);
-        SQLiteDatabase db = dbHelper.getWritableDatabase();
 
-        ContentValues testValues = TestDB.createNorthPoleLocationValues();
+        ContentValues locationValues = TestDB.createNorthPoleLocationValues();
 
-        long locationRowId;
-        locationRowId = db.insert(LocationEntry.TABLE_NAME, null, testValues);
+
+        Uri insertUri = mContext.getContentResolver().insert(LocationEntry.CONTENT_URI, locationValues);
+        long locationRowId = ContentUris.parseId(insertUri);
 
         // Verify we got a row back.
         assertTrue(locationRowId != -1);
@@ -57,7 +58,7 @@ public class TestProvider extends AndroidTestCase {
                 null  // sort order
         );
 
-        TestDB.validateCursor(cursor, testValues);
+        TestDB.validateCursor(cursor, locationValues);
 
         // Now see if we can successfully query if we include the row id
         cursor = mContext.getContentResolver().query(
@@ -68,13 +69,13 @@ public class TestProvider extends AndroidTestCase {
                 null  // sort order
         );
 
-        TestDB.validateCursor(cursor, testValues);
+        TestDB.validateCursor(cursor, locationValues);
 
         // Fantastic.  Now that we have a location, add some weather!
         ContentValues weatherValues = TestDB.createWeatherValues(locationRowId);
 
-        long weatherRowId = db.insert(WeatherEntry.TABLE_NAME, null, weatherValues);
-        assertTrue(weatherRowId != -1);
+        insertUri = mContext.getContentResolver().insert(WeatherEntry.CONTENT_URI, weatherValues);
+        long weatherRowId = ContentUris.parseId(insertUri);
 
         // A cursor is your primary interface to the query results.
         Cursor weatherCursor = mContext.getContentResolver().query(
@@ -89,7 +90,7 @@ public class TestProvider extends AndroidTestCase {
 
         // Add the location values in with the weather data so that we can make
         // sure that the join worked and we actually get all the values back
-        addAllContentValues(weatherValues, testValues);
+        addAllContentValues(weatherValues, locationValues);
 
         // Get the joined Weather and Location data
         weatherCursor = mContext.getContentResolver().query(
@@ -122,8 +123,6 @@ public class TestProvider extends AndroidTestCase {
                 null  // sort order
         );
         TestDB.validateCursor(weatherCursor, weatherValues);
-
-        dbHelper.close();
     }
 
     public void testGetType() {
