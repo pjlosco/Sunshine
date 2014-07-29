@@ -86,7 +86,6 @@ public class TestProvider extends AndroidTestCase {
         );
 
         TestDB.validateCursor(weatherCursor, weatherValues);
-        weatherCursor.close();
 
         // Add the location values in with the weather data so that we can make
         // sure that the join worked and we actually get all the values back
@@ -105,6 +104,17 @@ public class TestProvider extends AndroidTestCase {
         // Get the joined Weather and Location data with a start date
         weatherCursor = mContext.getContentResolver().query(
                 WeatherEntry.buildWeatherLocationWithStartDateUri(
+                        TestDB.TEST_LOCATION, TestDB.TEST_DATE),
+                null, // leaving "columns" null just returns all the columns.
+                null, // cols for "where" clause
+                null, // values for "where" clause
+                null  // sort order
+        );
+        TestDB.validateCursor(weatherCursor, weatherValues);
+
+        // Get the joined Weather and Location data with a specific date
+        weatherCursor = mContext.getContentResolver().query(
+                WeatherEntry.buildWeatherLocationWithDateUri(
                         TestDB.TEST_LOCATION, TestDB.TEST_DATE),
                 null, // leaving "columns" null just returns all the columns.
                 null, // cols for "where" clause
