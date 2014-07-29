@@ -19,20 +19,12 @@ public class WeatherDBHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-//        final String SQL_CREATE_LOCATION_TABLE =
-//                "CREATE TABLE " + LocationEntry.TABLE_NAME + " ( " +
-//                        LocationEntry._ID + " INTEGER PRIMARY KEY, " +
-//                        LocationEntry.COLUMN_POSTAL_CODE + " INTEGER NOT NULL, " +
-//                        LocationEntry.COLUMN_LOCATION_NAME + " TEXT NOT NULL, " +
-//                        "UNIQUE (" + LocationEntry.COLUMN_LOCATION_NAME + ") ON CONFLICT IGNORE);" +
-//                        "UNIQUE (" + LocationEntry.COLUMN_POSTAL_CODE + ") ON CONFLICT IGNORE);"
-//                ;
 
         final String SQL_CREATE_LOCATION_TABLE =
                 "CREATE TABLE " + LocationEntry.TABLE_NAME + " ( " +
                         LocationEntry._ID + " INTEGER PRIMARY KEY, " +
                         LocationEntry.COLUMN_POSTAL_CODE + " TEXT NOT NULL, " +
-                        LocationEntry.COLUMN_LOCATION_NAME + " TEXT NOT NULL, " +
+                        LocationEntry.COLUMN_CITY_NAME + " TEXT NOT NULL, " +
                         LocationEntry.COLUMN_COORD_LATITUDE + " REAL NOT NULL, " +
                         LocationEntry.COLUMN_COORD_LONGITUDE + " REAL NOT NULL, " +
                         "UNIQUE (" + LocationEntry.COLUMN_POSTAL_CODE + ") ON CONFLICT IGNORE);"

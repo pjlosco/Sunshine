@@ -58,4 +58,6 @@ Sunshine App for android
         Log.d(LOG_TAG, "Unknown unit type for temp found: " + unitType);
      }
 22. Intents
-23.
+23. Contracts
+24. Database
+
