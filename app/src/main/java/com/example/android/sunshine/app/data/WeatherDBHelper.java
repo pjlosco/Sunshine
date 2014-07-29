@@ -23,11 +23,11 @@ public class WeatherDBHelper extends SQLiteOpenHelper {
         final String SQL_CREATE_LOCATION_TABLE =
                 "CREATE TABLE " + LocationEntry.TABLE_NAME + " ( " +
                         LocationEntry._ID + " INTEGER PRIMARY KEY, " +
-                        LocationEntry.COLUMN_POSTAL_CODE + " TEXT NOT NULL, " +
+                        LocationEntry.COLUMN_LOCATION_CODE + " TEXT NOT NULL, " +
                         LocationEntry.COLUMN_CITY_NAME + " TEXT NOT NULL, " +
                         LocationEntry.COLUMN_COORD_LATITUDE + " REAL NOT NULL, " +
                         LocationEntry.COLUMN_COORD_LONGITUDE + " REAL NOT NULL, " +
-                        "UNIQUE (" + LocationEntry.COLUMN_POSTAL_CODE + ") ON CONFLICT IGNORE);"
+                        "UNIQUE (" + LocationEntry.COLUMN_LOCATION_CODE + ") ON CONFLICT IGNORE);"
                 ;
 
         final String SQL_CREATE_WEATHER_TABLE =

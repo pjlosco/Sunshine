@@ -1,9 +1,11 @@
 package com.example.android.sunshine.app.data;
 
 import android.content.ContentProvider;
+import android.content.ContentUris;
 import android.content.ContentValues;
 import android.content.UriMatcher;
 import android.database.Cursor;
+import android.database.sqlite.SQLiteQueryBuilder;
 import android.net.Uri;
 
 /**
@@ -20,6 +22,52 @@ public class WeatherProvider extends ContentProvider {
     private static final UriMatcher sUriMatcher = buildUriMatcher();
 
     private WeatherDBHelper mOpenHelper;
+
+    private static final SQLiteQueryBuilder sWeatherByLocationSettingQueryBuilder;
+
+    static{
+        sWeatherByLocationSettingQueryBuilder = new SQLiteQueryBuilder();
+        sWeatherByLocationSettingQueryBuilder.setTables(
+                WeatherContract.WeatherEntry.TABLE_NAME + " INNER JOIN " +
+                        WeatherContract.LocationEntry.TABLE_NAME +
+                        " ON " + WeatherContract.WeatherEntry.TABLE_NAME +
+                        "." + WeatherContract.WeatherEntry.COLUMN_LOC_KEY +
+                        " = " + WeatherContract.LocationEntry.TABLE_NAME +
+                        "." + WeatherContract.LocationEntry._ID);
+    }
+
+    private static final String sLocationSettingSelection =
+            WeatherContract.LocationEntry.TABLE_NAME+
+                    "." + WeatherContract.LocationEntry.COLUMN_LOCATION_CODE + " = ? ";
+    private static final String sLocationSettingSelectionWithStartDateSelection =
+            WeatherContract.LocationEntry.TABLE_NAME+
+                    "." + WeatherContract.LocationEntry.COLUMN_LOCATION_CODE + " = ? AND " +
+                    WeatherContract.WeatherEntry.COLUMN_DATETEXT + " >= ? ";
+
+    private Cursor getWeatherByLocationSetting(Uri uri, String[] projection, String sortOrder) {
+        String locationSetting = WeatherContract.WeatherEntry.getLocationSettingFromUri(uri);
+        String startDate = WeatherContract.WeatherEntry.getStartDateFromUri(uri);
+
+        String[] selectionArgs;
+        String selection;
+
+        if (startDate == null) {
+            selection = sLocationSettingSelection;
+            selectionArgs = new String[]{locationSetting};
+        } else {
+            selection = sLocationSettingSelectionWithStartDateSelection;
+            selectionArgs = new String[]{locationSetting, startDate};
+        }
+
+        return sWeatherByLocationSettingQueryBuilder.query(mOpenHelper.getReadableDatabase(),
+                projection,
+                selection,
+                selectionArgs,
+                null,
+                null,
+                sortOrder
+        );
+    }
 
     private static UriMatcher buildUriMatcher() {
         final UriMatcher matcher = new UriMatcher(UriMatcher.NO_MATCH);
@@ -55,7 +103,7 @@ public class WeatherProvider extends ContentProvider {
             }
             // "weather/*"
             case WEATHER_WITH_LOCATION: {
-                retCursor = null;
+                retCursor = getWeatherByLocationSetting(uri, projection, sortOrder);
                 break;
             }
             // "weather"
@@ -73,12 +121,28 @@ public class WeatherProvider extends ContentProvider {
             }
             // "location/*"
             case LOCATION_ID: {
-                retCursor = null;
+                retCursor = mOpenHelper.getReadableDatabase().query(
+                        WeatherContract.LocationEntry.TABLE_NAME,
+                        projection,
+                        WeatherContract.LocationEntry._ID + " = '" + ContentUris.parseId(uri) + "'",
+                        null,
+                        null,
+                        null,
+                        sortOrder
+                );
                 break;
             }
             // "location"
             case LOCATION: {
-                retCursor = null;
+                retCursor = mOpenHelper.getReadableDatabase().query(
+                        WeatherContract.LocationEntry.TABLE_NAME,
+                        projection,
+                        selection,
+                        selectionArgs,
+                        null,
+                        null,
+                        sortOrder
+                );
                 break;
             }
 

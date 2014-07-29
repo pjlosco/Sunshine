@@ -19,7 +19,7 @@ public class WeatherContract {
         public static final String CONTENT_ITEM_TYPE = "vnd.android.cursor.item/" + CONTENT_AUTHORITY + "/" + PATH_LOCATION;
 
         public static final String TABLE_NAME = "location";
-        public static final String COLUMN_POSTAL_CODE = "postal_code";
+        public static final String COLUMN_LOCATION_CODE = "postal_code";
         public static final String COLUMN_CITY_NAME = "city_name";
         public static final String COLUMN_COORD_LATITUDE = "coord_latitude";
         public static final String COLUMN_COORD_LONGITUDE = "coord_longitude";
