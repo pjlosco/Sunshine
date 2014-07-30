@@ -2,6 +2,7 @@ Sunshine
 ========
 
 Sunshine App for android
+https://github.com/udacity/Sunshine/tree/6.02-notifications
 
 
 * Progress Notes

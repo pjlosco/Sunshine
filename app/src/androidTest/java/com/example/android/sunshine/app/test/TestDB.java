@@ -15,17 +15,13 @@ import java.util.Set;
 public class TestDB extends AndroidTestCase {
 
     public static final String LOG_TAG = TestDB.class.getSimpleName();
+    static final String TEST_LOCATION = "99705";
+    static final String TEST_DATE = "20141205";
 
-    public static final String TEST_CITY_NAME = "North Pole";
-    public static final String TEST_LOCATION = "99705";
-    public static final double TEST_LATITUDE = 64.7488;
-    public static final double TEST_LONGITUDE = -147.353;
-    public static final String TEST_DATE = "20141205";
-
-
-    public void testCreateDB() throws Throwable {
+    public void testCreateDb() throws Throwable {
         mContext.deleteDatabase(WeatherDBHelper.DATABASE_NAME);
-        SQLiteDatabase db = new WeatherDBHelper(this.mContext).getWritableDatabase();
+        SQLiteDatabase db = new WeatherDBHelper(
+                this.mContext).getWritableDatabase();
         assertEquals(true, db.isOpen());
         db.close();
     }
@@ -104,9 +100,9 @@ public class TestDB extends AndroidTestCase {
         // Create a new map of values, where column names are the keys
         ContentValues testValues = new ContentValues();
         testValues.put(LocationEntry.COLUMN_LOCATION_CODE, TEST_LOCATION);
-        testValues.put(LocationEntry.COLUMN_CITY_NAME, TEST_CITY_NAME);
-        testValues.put(LocationEntry.COLUMN_COORD_LATITUDE, TEST_LATITUDE);
-        testValues.put(LocationEntry.COLUMN_COORD_LONGITUDE, TEST_LONGITUDE);
+        testValues.put(LocationEntry.COLUMN_CITY_NAME, "North Pole");
+        testValues.put(LocationEntry.COLUMN_COORD_LATITUDE, 64.7488);
+        testValues.put(LocationEntry.COLUMN_COORD_LONGITUDE, -147.353);
 
         return testValues;
     }
