@@ -76,15 +76,15 @@ public class DetailFragment extends Fragment implements LoaderManager.LoaderCall
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_detail, container, false);
-        mIconView = (ImageView) getView().findViewById(R.id.detail_icon_imageview);
-        mDateView = (TextView) getView().findViewById(R.id.detail_date_textview);
-        mDayView = (TextView) getView().findViewById(R.id.detail_day_textview);
-        mForecastView = (TextView) getView().findViewById(R.id.detail_forecast_textview);
-        mHighView = (TextView) getView().findViewById(R.id.detail_high_textview);
-        mLowView = (TextView) getView().findViewById(R.id.detail_low_textview);
-        mHumidityView = (TextView) getView().findViewById(R.id.detail_humidity_textview);
-        mWindView = (TextView) getView().findViewById(R.id.detail_wind_textview);
-        mPressureView = (TextView) getView().findViewById(R.id.detail_pressure_textview);
+        mIconView = (ImageView) rootView.findViewById(R.id.detail_icon_imageview);
+        mDateView = (TextView) rootView.findViewById(R.id.detail_date_textview);
+        mDayView = (TextView) rootView.findViewById(R.id.detail_day_textview);
+        mForecastView = (TextView) rootView.findViewById(R.id.detail_forecast_textview);
+        mHighView = (TextView) rootView.findViewById(R.id.detail_high_textview);
+        mLowView = (TextView) rootView.findViewById(R.id.detail_low_textview);
+        mHumidityView = (TextView) rootView.findViewById(R.id.detail_humidity_textview);
+        mWindView = (TextView) rootView.findViewById(R.id.detail_wind_textview);
+        mPressureView = (TextView) rootView.findViewById(R.id.detail_pressure_textview);
         return rootView;
     }
 
