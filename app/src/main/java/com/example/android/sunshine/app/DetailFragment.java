@@ -154,7 +154,7 @@ public class DetailFragment extends Fragment implements LoaderManager.LoaderCall
     public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
         if (!data.moveToFirst()) { return; }
         boolean isMetric = Utility.isMetric(getActivity());
-
+        int weatherId = data.getInt(data.getColumnIndex(WeatherEntry.COLUMN_WEATHER_ID));
         String weatherDescription = data.getString(data.getColumnIndex(WeatherEntry.COLUMN_SHORT_DESC));
         String dateString = data.getString(data.getColumnIndex(WeatherEntry.COLUMN_DATETEXT));
         String dateText = Utility.getFormattedMonthDay(getActivity(), dateString);
@@ -168,7 +168,7 @@ public class DetailFragment extends Fragment implements LoaderManager.LoaderCall
                 data.getFloat(data.getColumnIndex(WeatherEntry.COLUMN_DEGREES)));
         String pressure = Utility.formatPressure(getActivity(), data.getFloat(data.getColumnIndex(WeatherEntry.COLUMN_PRESSURE)));
 
-        mIconView.setImageResource(R.drawable.ic_launcher);
+        mIconView.setImageResource(Utility.getArtResourceForWeatherCondition(weatherId));
         mDateView.setText(dateText);
         mDayView.setText(dayText);
         mForecastView.setText(weatherDescription);

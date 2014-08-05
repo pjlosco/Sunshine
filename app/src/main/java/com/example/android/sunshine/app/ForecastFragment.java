@@ -52,17 +52,19 @@ public class ForecastFragment extends Fragment implements LoaderManager.LoaderCa
             WeatherEntry.COLUMN_SHORT_DESC,
             WeatherEntry.COLUMN_MAX_TEMP,
             WeatherEntry.COLUMN_MIN_TEMP,
+            WeatherEntry.COLUMN_WEATHER_ID,
             LocationEntry.COLUMN_LOCATION_CODE
     };
 
     // These indices are tied to FORECAST_COLUMNS.  If FORECAST_COLUMNS changes, these
     // must change.
-    public static final int COL_WEATHER_ID = 0;
+    public static final int COL_ID = 0;
     public static final int COL_WEATHER_DATE = 1;
     public static final int COL_WEATHER_DESC = 2;
     public static final int COL_WEATHER_MAX_TEMP = 3;
     public static final int COL_WEATHER_MIN_TEMP = 4;
-    public static final int COL_LOCATION_SETTING = 5;
+    public static final int COL_WEATHER_ID = 5;
+    public static final int COL_LOCATION_SETTING = 6;
 
     private ForecastAdapter mForecastAdapter;
 
