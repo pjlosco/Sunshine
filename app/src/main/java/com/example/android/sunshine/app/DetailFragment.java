@@ -52,9 +52,12 @@ public class DetailFragment extends Fragment implements LoaderManager.LoaderCall
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        getLoaderManager().initLoader(DETAIL_LOADER, null, this);
         if (savedInstanceState != null) {
             mLocation = savedInstanceState.getString(LOCATION_KEY);
+        }
+        Bundle args = getArguments();
+        if (args != null && args.containsKey(DATE_KEY)) {
+            getLoaderManager().initLoader(DETAIL_LOADER, null, this);
         }
     }
 
@@ -67,7 +70,9 @@ public class DetailFragment extends Fragment implements LoaderManager.LoaderCall
     @Override
     public void onResume() {
         super.onResume();
-        if (mLocation != null && !mLocation.equals(Utility.getPreferredLocation(getActivity()))) {
+        Bundle args = getArguments();
+        if (args != null && args.containsKey(DATE_KEY) &&
+                mLocation != null && !mLocation.equals(Utility.getPreferredLocation(getActivity()))) {
             getLoaderManager().restartLoader(DETAIL_LOADER, null, this);
         }
     }
@@ -125,11 +130,7 @@ public class DetailFragment extends Fragment implements LoaderManager.LoaderCall
                 LocationEntry.COLUMN_LOCATION_CODE
         };
 
-        Intent intent = getActivity().getIntent();
-        if (intent == null || !intent.hasExtra(DATE_KEY)) {
-            return null;
-        }
-        String forecastDate = intent.getStringExtra(DATE_KEY);
+        String forecastDate = getArguments().getString(DATE_KEY);
 
         // Sort order:  Ascending, by date.
         String sortOrder = WeatherEntry.COLUMN_DATETEXT + " ASC";
