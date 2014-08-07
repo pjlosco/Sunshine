@@ -55,6 +55,7 @@ public class ForecastAdapter extends CursorAdapter {
         int weatherId = cursor.getInt(ForecastFragment.COL_WEATHER_ID);
 
         if (getItemViewType(cursor.getPosition()) == VIEW_TYPE_TODAY) {
+            viewHolder.locationName.setText(cursor.getString((ForecastFragment.COL_LOCATION_CODE)));
             viewHolder.iconView.setImageResource(Utility.getArtResourceForWeatherCondition(weatherId));
         } else if (getItemViewType(cursor.getPosition()) == VIEW_TYPE_FUTURE_DAY) {
             viewHolder.iconView.setImageResource(Utility.getIconResourceForWeatherCondition(weatherId));
@@ -67,6 +68,7 @@ public class ForecastAdapter extends CursorAdapter {
         // Read weather forecast from cursor
         String description = cursor.getString(ForecastFragment.COL_WEATHER_DESC);
         viewHolder.descriptionView.setText(description);
+        viewHolder.iconView.setContentDescription(description);
 
         // Read user preference for metric or imperial temperature units
         boolean isMetric = Utility.isMetric(context);
@@ -81,6 +83,7 @@ public class ForecastAdapter extends CursorAdapter {
     }
 
     public static class ViewHolder {
+        public TextView locationName;
         public final ImageView iconView;
         public final TextView dateView;
         public final TextView descriptionView;
@@ -88,6 +91,11 @@ public class ForecastAdapter extends CursorAdapter {
         public final TextView lowTempView;
 
         public ViewHolder(View view) {
+            try {
+                locationName = (TextView) view.findViewById(R.id.location_name);
+            } catch (Exception e) {
+                locationName = null;
+            }
             iconView = (ImageView) view.findViewById(R.id.list_item_icon);
             dateView = (TextView) view.findViewById(R.id.list_item_date_textview);
             descriptionView = (TextView) view.findViewById(R.id.list_item_forecast_textview);

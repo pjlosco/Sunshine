@@ -11,9 +11,9 @@
     <string name="title_activity_settings">Sunshine Settings</string>
     <string name="title_activity_detail">Weather Details</string>
 
-    <string name="pref_location_label">Location (Zip)</string>
+    <string name="pref_location_label">Location</string>
     <string name="pref_location_key" translatable="false">location</string>
-    <string name="pref_location_default" translatable="false">10016</string>
+    <string name="pref_location_default" translatable="false">New York</string>
 
     <string name="pref_units_label">Temperature Units</string>
     <string name="pref_units_key" translatable="false">units</string>
