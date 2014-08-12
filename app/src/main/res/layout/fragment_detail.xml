@@ -14,7 +14,7 @@
 
         <TextView
             android:id="@+id/location_name"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:textAppearanceLarge"
             android:fontFamily="sans-serif-condensed"/>
@@ -27,7 +27,7 @@
             android:fontFamily="sans-serif-condensed"/>
         <TextView
             android:id="@+id/detail_date_textview"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:textAppearanceMedium"
             android:textColor="@color/grey_700"
@@ -47,9 +47,10 @@
 
                 <TextView
                     android:id="@+id/detail_high_textview"
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textSize="96sp"
+                    android:text="99"
                     android:fontFamily="sans-serif-light"/>
 
                 <TextView
@@ -58,6 +59,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textSize="48sp"
+                    android:text="88"
                     android:textColor="@color/grey_700"
                     />
 

@@ -162,6 +162,9 @@ public class DetailFragment extends Fragment implements LoaderManager.LoaderCall
         String dateString = data.getString(data.getColumnIndex(WeatherEntry.COLUMN_DATETEXT));
         String dateText = Utility.getFormattedMonthDay(getActivity(), dateString);
         String dayText = Utility.getFriendlyDayString(getActivity(), dateString);
+        if (dayText.contains("Today")) {
+            dayText = "Today";
+        }
         String high = Utility.formatTemperature(getActivity(), data.getDouble(data.getColumnIndex(WeatherEntry.COLUMN_MAX_TEMP)), isMetric);
         String low = Utility.formatTemperature(getActivity(), data.getDouble(data.getColumnIndex(WeatherEntry.COLUMN_MIN_TEMP)), isMetric);
 
