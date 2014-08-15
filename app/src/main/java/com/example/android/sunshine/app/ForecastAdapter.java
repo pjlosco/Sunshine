@@ -55,7 +55,7 @@ public class ForecastAdapter extends CursorAdapter {
         int weatherId = cursor.getInt(ForecastFragment.COL_WEATHER_ID);
 
         if (getItemViewType(cursor.getPosition()) == VIEW_TYPE_TODAY) {
-            viewHolder.locationName.setText(cursor.getString((ForecastFragment.COL_LOCATION_CODE)));
+            viewHolder.locationName.setText(cursor.getString((ForecastFragment.COL_CITY_NAME)));
             viewHolder.iconView.setImageResource(Utility.getArtResourceForWeatherCondition(weatherId));
         } else if (getItemViewType(cursor.getPosition()) == VIEW_TYPE_FUTURE_DAY) {
             viewHolder.iconView.setImageResource(Utility.getIconResourceForWeatherCondition(weatherId));

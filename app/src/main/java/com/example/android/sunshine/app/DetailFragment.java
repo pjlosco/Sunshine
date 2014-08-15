@@ -35,7 +35,6 @@ public class DetailFragment extends Fragment implements LoaderManager.LoaderCall
     public static final String DATE_KEY = "forecast_date";
     public static final String LOCATION_KEY = "location";
 
-    private TextView mLocationView;
     private ImageView mIconView;
     private TextView mDateView;
     private TextView mDayView;
@@ -82,7 +81,6 @@ public class DetailFragment extends Fragment implements LoaderManager.LoaderCall
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_detail, container, false);
-        mLocationView = (TextView) rootView.findViewById(R.id.location_name);
         mIconView = (ImageView) rootView.findViewById(R.id.detail_icon_imageview);
         mDateView = (TextView) rootView.findViewById(R.id.detail_date_textview);
         mDayView = (TextView) rootView.findViewById(R.id.detail_day_textview);
@@ -174,9 +172,6 @@ public class DetailFragment extends Fragment implements LoaderManager.LoaderCall
                 data.getFloat(data.getColumnIndex(WeatherEntry.COLUMN_DEGREES)));
         String pressure = Utility.formatPressure(getActivity(), data.getFloat(data.getColumnIndex(WeatherEntry.COLUMN_PRESSURE)));
 
-        String locationName = data.getString(data.getColumnIndex(LocationEntry.COLUMN_LOCATION_CODE));
-
-        mLocationView.setText(locationName);
         mIconView.setImageResource(Utility.getArtResourceForWeatherCondition(weatherId));
         mIconView.setContentDescription(weatherDescription);
         mDateView.setText(dateText);
